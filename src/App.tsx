@@ -46,8 +46,9 @@ const Container = styled.div`
 
 const InnerContainer = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
+  height: 100%;
+  min-height: 100%;
   padding: 0 1rem;
 
   @media (min-width: 80rem) {
