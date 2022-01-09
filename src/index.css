@@ -10,7 +10,8 @@ body {
 }
 
 body > #root > div {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 *,
@@ -49,4 +50,11 @@ h3 {
 p,
 div {
   font-size: 0.875rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
 }

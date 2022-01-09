@@ -1,19 +1,31 @@
-import React from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
-import { Header, MessageList } from "./components";
+import { Header, MessageInput, MessageList } from "./components";
 
 function App() {
+  const [messages, setMessages] = useState<string[]>([]);
+
+  const updateMessages = useCallback(
+    (message: string) => {
+      setMessages([...messages, message]);
+    },
+    [messages]
+  );
+
   return (
     <Container>
       <InnerContainer>
         <Header />
-        <MessageList />
+        <MessageList messages={messages} />
+        <StyledMessageInput onSubmit={updateMessages} />
       </InnerContainer>
     </Container>
   );
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 2em 0;
   background: linear-gradient(-45deg, #ea4492, #041b2d, #004e9a);
   background-size: 400% 400%;
@@ -33,11 +45,18 @@ const Container = styled.div`
 `;
 
 const InnerContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding: 0 1rem;
 
   @media (min-width: 80rem) {
     padding: 0 8rem;
   }
+`;
+
+const StyledMessageInput = styled(MessageInput)`
+  margin-top: 16px;
 `;
 
 export default App;
