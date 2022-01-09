@@ -22,7 +22,9 @@ export function MessageList({ messages }: MessageListProps) {
   return (
     <OuterContainer>
       {messages.map((message, i) => (
-        <MessageBubble key={i}>{message}</MessageBubble>
+        <MessageBubble incoming={Boolean(i % 2)} key={i}>
+          {message}
+        </MessageBubble>
       ))}
       <div ref={messagesEndRef} />
     </OuterContainer>
