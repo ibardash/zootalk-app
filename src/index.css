@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  overscroll-behavior: none;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color: #474b6d;
+}
+
+body > #root > div {
+  min-height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+p {
+  color: #fff;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+p,
+div {
+  font-size: 0.875rem;
+}
