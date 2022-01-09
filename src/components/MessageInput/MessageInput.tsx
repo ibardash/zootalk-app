@@ -20,6 +20,8 @@ export function MessageInput({ onSubmit, className }: MessageInputProps) {
   const onSubmitHandler = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      if (!message) return;
+
       onSubmit(message);
       setMessage("");
     },
