@@ -32,6 +32,8 @@ export function MessageList({ messages }: MessageListProps) {
 }
 
 const OuterContainer = styled.div`
-  overflow-y: scroll;
+  display: flex;
   flex-grow: 1;
+  flex-direction: column;
+  overflow-y: scroll;
 `;
