@@ -1,5 +1,8 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function WelcomeScreen() {
-  return <Link to="/chat">Chat now</Link>;
+  const navigate = useNavigate();
+  const handleClick = () => navigate("/chat");
+
+  return <button onClick={handleClick}>Chat now</button>;
 }
