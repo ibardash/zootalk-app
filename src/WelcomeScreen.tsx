@@ -1,8 +1,13 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { client } from "./ApiProvider";
 import useChatContext from "./ChatContext";
 import { useMessagePostedSubscription } from "./components/messagePosted.generated";
-import { useGetMessagesQuery } from "./components/messages.generated";
+import {
+  GetMessagesDocument,
+  GetMessagesQuery,
+  useGetMessagesQuery,
+} from "./components/messages.generated";
 
 function Messages() {
   const { loading, error, data } = useGetMessagesQuery();
@@ -16,10 +21,25 @@ function Messages() {
 function MessagesSubscription() {
   const { loading, error, data } = useMessagePostedSubscription();
 
+  useEffect(() => {
+    if (!data?.messagePosted) return;
+
+    const oldData = client.readQuery<GetMessagesQuery>({
+      query: GetMessagesDocument,
+    });
+
+    client.writeQuery({
+      query: GetMessagesDocument,
+      data: {
+        messages: [...(oldData?.messages ?? []), data?.messagePosted],
+      },
+    });
+  }, [data]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return <div>{data?.messagePosted}</div>;
+  return null;
 }
 
 export function WelcomeScreen() {
