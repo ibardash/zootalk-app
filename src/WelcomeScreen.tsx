@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useChatContext from "./ChatContext";
-import { useGetMessagesQuery } from "./generated";
+import { useGetMessagesQuery, useMessagePostedSubscription } from "./generated";
 
 function Messages() {
   const { loading, error, data } = useGetMessagesQuery();
@@ -10,6 +10,15 @@ function Messages() {
   if (error) return <p>Error :(</p>;
 
   return <div>{data?.messages.join(",")}</div>;
+}
+
+function MessagesSubscription() {
+  const { loading, error, data } = useMessagePostedSubscription();
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  return <div>{data?.messagePosted}</div>;
 }
 
 export function WelcomeScreen() {
@@ -34,6 +43,7 @@ export function WelcomeScreen() {
       <input type="text" value={name} onChange={onChangeHandler} />
       <button onClick={handleClick}>Chat now</button>
       <Messages />
+      <MessagesSubscription />
     </div>
   );
 }
