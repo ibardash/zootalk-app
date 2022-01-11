@@ -1,7 +1,8 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useChatContext from "./ChatContext";
-import { useGetMessagesQuery, useMessagePostedSubscription } from "./generated";
+import { useMessagePostedSubscription } from "./components/messagePosted.generated";
+import { useGetMessagesQuery } from "./components/messages.generated";
 
 function Messages() {
   const { loading, error, data } = useGetMessagesQuery();

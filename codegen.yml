@@ -2,11 +2,26 @@ overwrite: true
 schema: "http://localhost:4000/graphql"
 documents: "src/**/*.graphql"
 generates:
-  src/generated/graphql.tsx:
+  src/graphql/types.generated.ts:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
-  ./graphql.schema.json:
+      - typescript
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: graphql/types.generated.ts
     plugins:
-      - "introspection"
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withComponent: false
+      withHOC: false
+      withHooks: true
+  src/graphql/fragmentTypes.generated.ts:
+    plugins:
+      - fragment-matcher
+  src/graphql/schema.graphql:
+    plugins:
+      - schema-ast
+    config:
+      includeDirectives: true

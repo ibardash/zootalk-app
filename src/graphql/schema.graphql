@@ -1,0 +1,30 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Author {
+  books: [Book]
+  name: String
+}
+
+type Book {
+  author: Author
+  title: String
+}
+
+type Mutation {
+  _empty: Boolean
+  sendMessage(message: String!): String
+}
+
+type Query {
+  _empty: Boolean
+  messages: [String!]!
+}
+
+type Subscription {
+  _empty: Boolean
+  messagePosted: String
+}
