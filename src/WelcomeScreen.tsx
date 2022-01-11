@@ -1,21 +1,15 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useChatContext from "./ChatContext";
-import { useQuery, gql } from "@apollo/client";
-
-const GET_MESSAGES = gql`
-  query GetMessages {
-    messages
-  }
-`;
+import { useGetMessagesQuery } from "./generated";
 
 function Messages() {
-  const { loading, error, data } = useQuery(GET_MESSAGES);
+  const { loading, error, data } = useGetMessagesQuery();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return <div>{data.messages}</div>;
+  return <div>{data?.messages.join(",")}</div>;
 }
 
 export function WelcomeScreen() {
