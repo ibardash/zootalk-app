@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import { BlobText, Background } from "./ui";
+import { Background, AppLogo } from "./ui";
 
 export function WelcomeScreen() {
   return (
-    <StyledGradientBackground>
-      <StyledSquigglyText>ZooTalk</StyledSquigglyText>
-    </StyledGradientBackground>
+    <>
+      <StyledGradientBackground>
+        <AppLogo full />
+        <AppLogo />
+      </StyledGradientBackground>
+    </>
   );
 }
 
@@ -14,8 +17,4 @@ const StyledGradientBackground = styled(Background)`
   flex: 1;
   align-items: center;
   justify-content: center;
-`;
-
-const StyledSquigglyText = styled(BlobText)`
-  color: #fff;
 `;

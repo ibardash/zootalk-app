@@ -96,10 +96,10 @@ div span:before {
 
 .blobs_7 {
   background: #ff8c00;
-  width: 60px;
-  height: 48px;
-  top: 60%;
-  left: 10%;
+  width: 40px;
+  height: 40px;
+  left: 48px;
+  top: 75px;
 }
 
 @keyframes blobs {
