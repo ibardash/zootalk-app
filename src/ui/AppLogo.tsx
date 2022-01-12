@@ -35,7 +35,8 @@ const Container = styled.div<{ full?: boolean }>`
   padding: 0 20px;
   background-color: #fff;
   border-radius: 32px;
-  ${({ full }: { full?: boolean }) => (full ? "" : "transform: scale(0.5);")}
+  ${({ full }: { full?: boolean }) =>
+    full ? "" : "transform: scale(0.4) translateX(-60%);"}
 `;
 
 const Text = styled.div`
