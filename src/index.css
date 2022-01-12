@@ -15,11 +15,6 @@ a {
   text-decoration: none;
 }
 
-body > #root > div:nth-child(2) {
-  height: 100vh;
-  overflow: hidden;
-}
-
 *,
 *::before,
 *::after {

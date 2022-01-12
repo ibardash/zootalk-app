@@ -1,18 +1,15 @@
 import styled from "styled-components";
-import { Background, AppLogo } from "./ui";
+import { AppLogo } from "./ui";
 
 export function WelcomeScreen() {
   return (
-    <>
-      <StyledGradientBackground>
-        <AppLogo full />
-        <AppLogo />
-      </StyledGradientBackground>
-    </>
+    <Container>
+      <AppLogo full />
+    </Container>
   );
 }
 
-const StyledGradientBackground = styled(Background)`
+const Container = styled.div`
   display: flex;
   flex: 1;
   align-items: center;

@@ -4,27 +4,34 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { ChatContextProvider } from "./ChatContext";
 import { ApiProvider } from "./ApiProvider";
 import styled from "styled-components";
-import { AppLogo } from "./ui";
+import { AppLogo, Background } from "./ui";
 
 export function App() {
   return (
     <ApiProvider>
       <ChatContextProvider>
         <Router>
-          <NavBar>
-            <Link to="/">
-              <AppLogo />
-            </Link>
-          </NavBar>
-          <Routes>
-            <Route path="/" element={<WelcomeScreen />} />
-            <Route path="/chat" element={<ChatScreen />} />
-          </Routes>
+          <StyledGradientBackground>
+            <NavBar>
+              <Link to="/">
+                <AppLogo />
+              </Link>
+            </NavBar>
+            <Routes>
+              <Route path="/" element={<WelcomeScreen />} />
+              <Route path="/chat" element={<ChatScreen />} />
+            </Routes>
+          </StyledGradientBackground>
         </Router>
       </ChatContextProvider>
     </ApiProvider>
   );
 }
+
+const StyledGradientBackground = styled(Background)`
+  height: 100vh;
+  overflow: hidden;
+`;
 
 const NavBar = styled.div`
   display: flex;
