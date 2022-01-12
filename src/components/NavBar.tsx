@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { AppLogo } from "ui";
 
 export function NavBar() {
-  return (
+  const location = useLocation();
+  return location.pathname === "/" ? null : (
     <Container>
       <Link to="/">
         <AppLogo />

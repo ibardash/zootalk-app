@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import styled from "styled-components";
-import useChatContext from "./ChatContext";
-import { MessageInput, MessageList } from "./components";
+import useChatContext from "ChatContext";
+import { MessageInput, MessageList } from "components";
 
 export function ChatScreen() {
   const [messages, setMessages] = useState<string[]>([]);

@@ -1,4 +1,4 @@
-import { MessageBubble } from "../MessageBubble";
+import { MessageBubble } from "./MessageBubble";
 import styled from "styled-components";
 import { useCallback, useEffect, useRef } from "react";
 

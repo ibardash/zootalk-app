@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AppLogo } from "./ui";
+import { AppLogo } from "ui";
 
 export function WelcomeScreen() {
   return (

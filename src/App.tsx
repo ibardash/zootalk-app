@@ -1,5 +1,4 @@
-import { WelcomeScreen } from "./WelcomeScreen";
-import { ChatScreen } from "./ChatScreen";
+import { WelcomeScreen, ChatScreen } from "screens";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ChatContextProvider } from "./ChatContext";
 import { ApiProvider } from "./ApiProvider";
@@ -12,20 +11,20 @@ export function App() {
     <ApiProvider>
       <ChatContextProvider>
         <Router>
-          <StyledGradientBackground>
+          <StyledBackground>
             <NavBar />
             <Routes>
               <Route path="/" element={<WelcomeScreen />} />
               <Route path="/chat" element={<ChatScreen />} />
             </Routes>
-          </StyledGradientBackground>
+          </StyledBackground>
         </Router>
       </ChatContextProvider>
     </ApiProvider>
   );
 }
 
-const StyledGradientBackground = styled(Background)`
+const StyledBackground = styled(Background)`
   height: 100vh;
   overflow: hidden;
 `;
