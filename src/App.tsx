@@ -1,4 +1,4 @@
-import { WelcomeScreen, ChatScreen } from "screens";
+import { WelcomeScreen, ChatScreen, ProfileScreen } from "screens";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ChatContextProvider } from "./ChatContext";
 import { ApiProvider } from "./ApiProvider";
@@ -15,6 +15,7 @@ export function App() {
             <NavBar />
             <Routes>
               <Route path="/" element={<WelcomeScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
               <Route path="/chat" element={<ChatScreen />} />
             </Routes>
           </StyledBackground>

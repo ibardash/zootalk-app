@@ -41,7 +41,7 @@ const Container = styled.div<{ full?: boolean }>`
 
 const Text = styled.div`
   display: flex;
-  font-family: "Titan One", cursive;
+  font-family: "Titan One";
   font-size: 90px;
   line-height: 120px;
   font-weight: 700;

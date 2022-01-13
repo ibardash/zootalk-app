@@ -18,9 +18,9 @@ const Container = styled.div`
   width: 100%;
   height: 80px;
   position: absolute;
-  background: rgba(255, 255, 255, 35%);
+  background: rgba(255, 255, 255, 25%);
   padding: 16px;
-  -webkit-box-shadow: 0px 8px 18px 4px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 8px 18px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 8px 18px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 18px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
 `;
