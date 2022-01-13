@@ -4,11 +4,12 @@ import { useCallback, useEffect, useRef } from "react";
 
 export interface MessageListProps {
   messages: string[];
+  className?: string;
 }
 
 const SCROLL_DELAY_MS = 300;
 
-export function MessageList({ messages }: MessageListProps) {
+export function MessageList({ messages, className }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToBottom = useCallback(() => {
@@ -20,7 +21,7 @@ export function MessageList({ messages }: MessageListProps) {
   }, [messages, scrollToBottom]);
 
   return (
-    <OuterContainer>
+    <OuterContainer className={className}>
       {messages.map((message, i) => (
         <MessageBubble incoming={Boolean(i % 2)} key={i}>
           {message}
@@ -36,4 +37,5 @@ const OuterContainer = styled.div`
   flex-grow: 1;
   flex-direction: column;
   overflow-y: scroll;
+  justify-content: flex-end;
 `;

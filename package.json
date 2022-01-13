@@ -6,7 +6,6 @@
     "@apollo/client": "^3.5.7",
     "@graphql-codegen/fragment-matcher": "^3.2.1",
     "@graphql-codegen/near-operation-file-preset": "^2.2.3",
-    "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "graphql": "^16.2.0",
     "react": "^17.0.2",

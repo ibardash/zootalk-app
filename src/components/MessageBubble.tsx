@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import "animate.css";
 
 export interface MessageBubbleProps {
   children: string;
@@ -10,16 +9,7 @@ export function MessageBubble({
   children: message,
   incoming,
 }: MessageBubbleProps) {
-  return (
-    <OuterContainer
-      className={`animate__animated ${
-        incoming ? "animate__bounceInRight" : "animate__bounceInUp"
-      }`}
-      incoming={incoming}
-    >
-      {message}
-    </OuterContainer>
-  );
+  return <OuterContainer incoming={incoming}>{message}</OuterContainer>;
 }
 
 const OuterContainer = styled.div<{ incoming?: boolean }>`

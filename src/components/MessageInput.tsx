@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
-import "animate.css";
+import { Button } from "ui";
 
 export interface MessageInputProps {
   onSubmit: (message: string) => void;
@@ -30,10 +30,8 @@ export function MessageInput({ onSubmit, className }: MessageInputProps) {
 
   return (
     <Form onSubmit={onSubmitHandler} className={className}>
-      <Wrapper>
-        <Input type="text" value={message} onChange={onChangeHandler} />
-      </Wrapper>
-      <button type="submit">Send</button>
+      <Input type="text" value={message} onChange={onChangeHandler} />
+      <Button type="submit">Send</Button>
     </Form>
   );
 }
@@ -42,20 +40,16 @@ const Form = styled.form`
   display: flex;
 `;
 
-const Wrapper = styled.div`
-  background-color: green;
-  display: flex;
-  border-radius: 8px;
-  padding: 8px;
-  margin-right: 16px;
-  flex: 1;
-`;
-
 const Input = styled.input`
   border-width: 0px;
-  border-radius: 8px;
+  border-radius: 16px;
   background-color: #fff;
-  font-size: 20px;
+  font-size: 16px;
   padding: 12px;
   flex: 1;
+  margin-right: 16px;
+
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.85);
+  }
 `;

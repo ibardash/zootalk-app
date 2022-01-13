@@ -17,7 +17,7 @@ export function ChatScreen() {
   return (
     <Container>
       {user?.name}
-      <MessageList messages={messages} />
+      <StyledMessageList messages={messages} />
       <StyledMessageInput onSubmit={updateMessages} />
     </Container>
   );
@@ -28,13 +28,17 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   min-height: 100%;
-  padding: 0 1rem;
+  padding: 0 2rem;
 
   @media (min-width: 80rem) {
-    padding: 0 8rem;
+    padding: 0 16rem;
   }
 `;
 
 const StyledMessageInput = styled(MessageInput)`
   margin-top: 16px;
+`;
+
+const StyledMessageList = styled(MessageList)`
+  margin-top: 80px;
 `;
