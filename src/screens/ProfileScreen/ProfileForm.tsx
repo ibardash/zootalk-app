@@ -1,58 +1,17 @@
+import { ZOOS, AVATARS } from "config";
 import { ChangeEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Avatar, Input, Zoo, FormStep } from "ui";
-import cockatoo from "images/avatar-cockatoo.png";
-import koala from "images/avatar-koala.png";
-import devil from "images/avatar-tasmanian-devil.png";
-import central from "images/sign-central.png";
-import east from "images/sign-east.png";
-import west from "images/sign-west.png";
-
-const AVATARS = [
-  {
-    id: "cockatoo",
-    description: "Cockatoo",
-    src: cockatoo,
-  },
-  {
-    id: "koala",
-    description: "Koala",
-    src: koala,
-  },
-  {
-    id: "devil",
-    description: "Tasmanian Devil",
-    src: devil,
-  },
-];
-
-const ZOOS = [
-  {
-    id: "west",
-    description: "Western Zoo",
-    src: west,
-  },
-  {
-    id: "central",
-    description: "Central Zoo",
-    src: central,
-  },
-  {
-    id: "east",
-    description: "Eastern Zoo",
-    src: east,
-  },
-];
 
 export function ProfileForm() {
   const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(0);
   const [profile, setProfile] = useState({
     name: "",
     avatar: "",
     zooLocation: "",
   });
-  const [currentStep, setCurrentStep] = useState(0);
 
   const onAvatarSelect = useCallback(
     (avatar: string) => {
@@ -92,7 +51,7 @@ export function ProfileForm() {
       >
         <h1>What zoo are you at?</h1>
         <Images>
-          {ZOOS.map(({ id, description, src }) => (
+          {Object.values(ZOOS).map(({ id, description, src }) => (
             <Zoo
               key={id}
               id={id}
@@ -111,8 +70,8 @@ export function ProfileForm() {
       >
         <h1>What's your favourite animal?</h1>
         <Images>
-          {AVATARS.map(({ id, description, src }) => (
-            <Avatar
+          {Object.values(AVATARS).map(({ id, description, src }) => (
+            <StyledAvatar
               key={id}
               id={id}
               description={description}
@@ -136,4 +95,8 @@ const Images = styled.div`
 const StyledInput = styled(Input)`
   width: 200px;
   text-align: center;
+`;
+
+const StyledAvatar = styled(Avatar)`
+  flex: 1;
 `;

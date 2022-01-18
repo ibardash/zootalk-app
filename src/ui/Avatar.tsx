@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export interface AvatarProps {
   id: string;
-  description: string;
+  description?: string;
   src: string;
-  selected: boolean;
-  onClick: (id: string) => void;
+  selected?: boolean;
+  onClick?: (id: string) => void;
+  className?: string;
+  size?: "s" | "l";
 }
 
 export function Avatar({
@@ -14,36 +16,37 @@ export function Avatar({
   src,
   onClick,
   selected,
+  className,
+  size = "l",
 }: AvatarProps) {
   return (
-    <Container>
+    <Container className={className}>
       <Image
         src={src}
-        alt={description}
+        alt={description || id}
         selected={selected}
-        onClick={() => onClick(id)}
+        onClick={() => onClick?.(id)}
+        size={size}
       />
-      <Description>{description}</Description>
+      {description && <Description>{description}</Description>}
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
-  flex: 1;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
   text-align: center;
-  flex: 1;
 `;
 
-const Image = styled.img<{ selected: boolean }>`
-  width: 200px;
-  height: 200px;
+const Image = styled.img<{ selected?: boolean; size: "s" | "l" }>`
+  width: ${({ size }) => (size === "l" ? 200 : 56)}px;
+  height: ${({ size }) => (size === "l" ? 200 : 56)}px;
   margin: 0 8px;
   border-radius: 100px;
-  border: 16px solid
+  border: ${({ size }) => (size === "l" ? 16 : 0)}px solid
     ${({ selected }) =>
       selected ? `rgba(255, 255, 255, 50%)` : `rgba(255, 255, 255, 0%)`};
   cursor: pointer;

@@ -1,6 +1,8 @@
 import { MessageBubble } from "./MessageBubble";
 import styled from "styled-components";
 import { useCallback, useEffect, useRef } from "react";
+import { Avatar } from "ui";
+import { AVATARS } from "config";
 
 export interface MessageListProps {
   messages: string[];
@@ -24,9 +26,15 @@ export function MessageList({ messages, className }: MessageListProps) {
     <OuterContainer className={className}>
       <div ref={messagesEndRef} />
       {messages.map((message, i) => (
-        <MessageBubble incoming={Boolean(i % 2)} key={i}>
-          {message}
-        </MessageBubble>
+        <MessageContainer key={i} incoming={Boolean(i % 2)}>
+          {!Boolean(i % 2) && (
+            <Avatar id="devil" src={AVATARS.devil.src} size="s" />
+          )}
+          <MessageBubble incoming={Boolean(i % 2)}>{message}</MessageBubble>
+          {Boolean(i % 2) && (
+            <Avatar id="devil" src={AVATARS.devil.src} size="s" />
+          )}
+        </MessageContainer>
       ))}
     </OuterContainer>
   );
@@ -37,4 +45,12 @@ const OuterContainer = styled.div`
   flex: 1;
   flex-direction: column-reverse;
   overflow-y: scroll;
+`;
+
+const MessageContainer = styled.div<{ incoming: boolean }>`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: ${({ incoming }) => (incoming ? `flex-end` : `flex-start`)};
+  margin-top: 16px;
 `;

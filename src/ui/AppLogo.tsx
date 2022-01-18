@@ -32,7 +32,7 @@ export function AppLogo({
 const Container = styled.div<{ full?: boolean }>`
   position: relative;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 30px;
   background-color: #fff;
   border-radius: 32px;
   ${({ full }: { full?: boolean }) =>
@@ -56,7 +56,7 @@ const TextBackground = styled.span`
     position: absolute;
     content: "";
     mix-blend-mode: screen;
-    margin-left: -20px;
+    margin-left: -30px;
     border-radius: 32px;
   }
 `;
