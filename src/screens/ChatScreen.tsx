@@ -24,6 +24,7 @@ export function ChatScreen() {
 }
 
 const Container = styled.div`
+  margin-bottom: 2em;
   display: flex;
   flex-direction: column;
   height: 100%;

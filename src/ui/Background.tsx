@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Background = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 2em;
   background: linear-gradient(
     -45deg,
     #07404f,
