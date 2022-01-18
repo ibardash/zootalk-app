@@ -9,7 +9,7 @@ export function ChatScreen() {
 
   const updateMessages = useCallback(
     (message: string) => {
-      setMessages([...messages, message]);
+      setMessages([message, ...messages]);
     },
     [messages]
   );
@@ -24,7 +24,6 @@ export function ChatScreen() {
 }
 
 const Container = styled.div`
-  margin-bottom: 2em;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -38,8 +37,9 @@ const Container = styled.div`
 
 const StyledMessageInput = styled(MessageInput)`
   margin-top: 16px;
+  margin-bottom: 32px;
 `;
 
 const StyledMessageList = styled(MessageList)`
-  margin-top: 80px;
+  margin-top: 112px;
 `;

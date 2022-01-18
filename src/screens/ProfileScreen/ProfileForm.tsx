@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button, Avatar, Input, Zoo } from "ui";
+import { Avatar, Input, Zoo, FormStep } from "ui";
 import cockatoo from "images/avatar-cockatoo.png";
 import koala from "images/avatar-koala.png";
 import devil from "images/avatar-tasmanian-devil.png";
@@ -45,12 +45,14 @@ const ZOOS = [
   },
 ];
 
-export function ProfileScreen() {
+export function ProfileForm() {
+  const navigate = useNavigate();
   const [profile, setProfile] = useState({
     name: "",
     avatar: "",
     zooLocation: "",
   });
+  const [currentStep, setCurrentStep] = useState(0);
 
   const onAvatarSelect = useCallback(
     (avatar: string) => {
@@ -74,51 +76,56 @@ export function ProfileScreen() {
   );
 
   return (
-    <Container>
-      <h1>What's your name?</h1>
-      <StyledInput type="text" value={profile.name} onChange={onNameChange} />
-      <h1>What zoo are you at?</h1>
-      <Images>
-        {ZOOS.map(({ id, description, src }) => (
-          <Zoo
-            key={id}
-            id={id}
-            description={description}
-            src={src}
-            selected={profile.zooLocation === id}
-            onClick={onZooSelect}
-          />
-        ))}
-      </Images>
-      <h1>What's your favourite animal?</h1>
-      <Images>
-        {AVATARS.map(({ id, description, src }) => (
-          <Avatar
-            key={id}
-            id={id}
-            description={description}
-            src={src}
-            selected={profile.avatar === id}
-            onClick={onAvatarSelect}
-          />
-        ))}
-      </Images>
-      <Link to="/chat">
-        <StyledButton>Start chatting</StyledButton>
-      </Link>
-    </Container>
+    <>
+      <FormStep
+        current={currentStep === 0}
+        onSubmit={() => setCurrentStep(1)}
+        buttonText="Next"
+      >
+        <h1>What's your name?</h1>
+        <StyledInput type="text" value={profile.name} onChange={onNameChange} />
+      </FormStep>
+      <FormStep
+        current={currentStep === 1}
+        onSubmit={() => setCurrentStep(2)}
+        buttonText="Next"
+      >
+        <h1>What zoo are you at?</h1>
+        <Images>
+          {ZOOS.map(({ id, description, src }) => (
+            <Zoo
+              key={id}
+              id={id}
+              description={description}
+              src={src}
+              selected={profile.zooLocation === id}
+              onClick={onZooSelect}
+            />
+          ))}
+        </Images>
+      </FormStep>
+      <FormStep
+        current={currentStep === 2}
+        onSubmit={() => navigate("/chat")}
+        buttonText="Start chatting"
+      >
+        <h1>What's your favourite animal?</h1>
+        <Images>
+          {AVATARS.map(({ id, description, src }) => (
+            <Avatar
+              key={id}
+              id={id}
+              description={description}
+              src={src}
+              selected={profile.avatar === id}
+              onClick={onAvatarSelect}
+            />
+          ))}
+        </Images>
+      </FormStep>
+    </>
   );
 }
-
-const Container = styled.div`
-  margin-top: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  overflow-y: scroll;
-  padding-top: 122px;
-`;
 
 const Images = styled.div`
   display: flex;
@@ -129,8 +136,4 @@ const Images = styled.div`
 const StyledInput = styled(Input)`
   width: 200px;
   text-align: center;
-`;
-
-const StyledButton = styled(Button)`
-  margin-bottom: 32px;
 `;

@@ -22,20 +22,19 @@ export function MessageList({ messages, className }: MessageListProps) {
 
   return (
     <OuterContainer className={className}>
+      <div ref={messagesEndRef} />
       {messages.map((message, i) => (
         <MessageBubble incoming={Boolean(i % 2)} key={i}>
           {message}
         </MessageBubble>
       ))}
-      <div ref={messagesEndRef} />
     </OuterContainer>
   );
 }
 
 const OuterContainer = styled.div`
   display: flex;
-  flex-grow: 1;
-  flex-direction: column;
+  flex: 1;
+  flex-direction: column-reverse;
   overflow-y: scroll;
-  justify-content: flex-end;
 `;

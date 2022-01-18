@@ -26,6 +26,7 @@ const StyledButton = styled.button`
   color: #6a82fb;
   border-bottom-width: 6px;
   border-color: #00ffff;
+  width: 100%;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.85);
