@@ -1,7 +1,8 @@
+import { ReactElement } from "react";
 import styled from "styled-components";
 
 export interface MessageBubbleProps {
-  children: string;
+  children: string | ReactElement;
   incoming?: boolean;
 }
 

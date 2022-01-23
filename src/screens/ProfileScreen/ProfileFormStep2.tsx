@@ -2,6 +2,7 @@ import { ZOOS } from "config";
 import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Zoo, FormStep } from "ui";
+import { useZoosQuery } from "./zoos.generated";
 
 export interface ProfileFormStep2Props {
   current: boolean;
@@ -10,16 +11,23 @@ export interface ProfileFormStep2Props {
 
 export function ProfileFormStep2({ current, onSubmit }: ProfileFormStep2Props) {
   const [zooLocation, setZooLocation] = useState("");
+  const { data, loading } = useZoosQuery();
+
   const onZooSelect = useCallback((zooLocation: string) => {
     setZooLocation(zooLocation);
   }, []);
 
   const onSubmitHandler = useCallback(() => {
-    if (!zooLocation.length) return;
-    onSubmit(zooLocation);
-  }, [zooLocation, onSubmit]);
+    if (!zooLocation.length || !data) return;
 
-  return (
+    const zooId = data.zoos?.find(
+      (zoo) => zoo.location.toLowerCase() === zooLocation.toLowerCase()
+    )?.id;
+
+    if (zooId) onSubmit(zooId);
+  }, [zooLocation, data, onSubmit]);
+
+  return loading ? null : (
     <FormStep current={current} onSubmit={onSubmitHandler} buttonText="Next">
       <h1>What zoo are you at?</h1>
       <Images>

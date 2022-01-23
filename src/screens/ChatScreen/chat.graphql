@@ -1,4 +1,4 @@
-query getChat($userId: String!) {
+query chat($userId: String!) {
   user(id: $userId) {
     id
     chat {

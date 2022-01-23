@@ -15,7 +15,7 @@ export type Scalars = {
 export type Chat = {
   __typename?: 'Chat';
   id: Scalars['String'];
-  messages?: Maybe<Array<Maybe<Message>>>;
+  messages?: Maybe<Array<Message>>;
   zoo?: Maybe<Zoo>;
 };
 
@@ -36,7 +36,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['Boolean']>;
   createUser?: Maybe<User>;
-  sendMessage?: Maybe<Message>;
+  postMessage?: Maybe<Message>;
 };
 
 
@@ -46,7 +46,7 @@ export type MutationCreateUserArgs = {
 };
 
 
-export type MutationSendMessageArgs = {
+export type MutationPostMessageArgs = {
   chatId: Scalars['String'];
   content: Scalars['String'];
   poster: Scalars['String'];
@@ -57,6 +57,7 @@ export type Query = {
   _empty?: Maybe<Scalars['Boolean']>;
   user?: Maybe<User>;
   zoo?: Maybe<Zoo>;
+  zoos?: Maybe<Array<Zoo>>;
 };
 
 

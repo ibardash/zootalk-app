@@ -4,8 +4,12 @@ import { useCallback, useEffect, useRef } from "react";
 import { Avatar } from "ui";
 import { AVATARS } from "config";
 
+interface Message {
+  content?: string | null | undefined;
+}
+
 export interface MessageListProps {
-  messages: string[];
+  messages: Message[];
   className?: string;
 }
 
@@ -30,7 +34,13 @@ export function MessageList({ messages, className }: MessageListProps) {
           {!Boolean(i % 2) && (
             <Avatar id="devil" src={AVATARS.devil.src} size="s" />
           )}
-          <MessageBubble incoming={Boolean(i % 2)}>{message}</MessageBubble>
+          <MessageBubble incoming={Boolean(i % 2)}>
+            {message.content ? (
+              message.content
+            ) : (
+              <i>Could not retrieve the message</i>
+            )}
+          </MessageBubble>
           {Boolean(i % 2) && (
             <Avatar id="devil" src={AVATARS.devil.src} size="s" />
           )}

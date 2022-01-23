@@ -6,7 +6,7 @@ schema {
 
 type Chat {
   id: String!
-  messages: [Message]
+  messages: [Message!]
   zoo: Zoo
 }
 
@@ -25,13 +25,14 @@ type Message {
 type Mutation {
   _empty: Boolean
   createUser(name: String!, zooId: String!): User
-  sendMessage(chatId: String!, content: String!, poster: String!): Message
+  postMessage(chatId: String!, content: String!, poster: String!): Message
 }
 
 type Query {
   _empty: Boolean
   user(id: String!): User
   zoo(location: Location!): Zoo
+  zoos: [Zoo!]
 }
 
 type Subscription {
