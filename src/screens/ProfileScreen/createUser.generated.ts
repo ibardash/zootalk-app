@@ -9,13 +9,16 @@ export type CreateUserMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', id: string } | null | undefined };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', id: string, chat?: { __typename?: 'Chat', id: string } | null | undefined } | null | undefined };
 
 
 export const CreateUserDocument = gql`
     mutation createUser($name: String!, $zooId: String!) {
   createUser(name: $name, zooId: $zooId) {
     id
+    chat {
+      id
+    }
   }
 }
     `;

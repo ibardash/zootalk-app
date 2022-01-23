@@ -1,4 +1,4 @@
-import central from "images/sign-central.png";
+import centre from "images/sign-centre.png";
 import east from "images/sign-east.png";
 import west from "images/sign-west.png";
 
@@ -8,10 +8,10 @@ export const ZOOS = {
     description: "Western Zoo",
     src: west,
   },
-  central: {
-    id: "central",
+  centre: {
+    id: "centre",
     description: "Central Zoo",
-    src: central,
+    src: centre,
   },
   east: {
     id: "east",

@@ -30,6 +30,7 @@ type Mutation {
 
 type Query {
   _empty: Boolean
+  chat(id: String!): Chat
   user(id: String!): User
   zoo(location: Location!): Zoo
   zoos: [Zoo!]

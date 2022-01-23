@@ -1,37 +1,57 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import styled from "styled-components";
 import useUserContext from "UserContext";
 import { MessageInput, MessageList } from "components";
-import { useChatLazyQuery } from "./chat.generated";
+import { ChatDocument, ChatQuery, useChatQuery } from "./chat.generated";
 import { usePostMessageMutation } from "./postMessage.generated";
+import { client } from "ApiProvider";
+import { useLocation } from "react-router-dom";
 
 export function ChatScreen() {
+  const { state } = useLocation();
   const { user } = useUserContext();
-  const [getChat, { data: chatData }] = useChatLazyQuery();
+  const { data: chatData } = useChatQuery({
+    variables: {
+      userId: (state as { userId: string }).userId,
+    },
+  });
   const chatId = chatData?.user?.chat?.id;
   const messages = chatData?.user?.chat?.messages || [];
-
   const [postMessage] = usePostMessageMutation();
 
-  useEffect(() => {
-    if (!user || !!chatData) return;
-
-    getChat({
-      variables: { userId: user?.id },
-    });
-  });
-
   const postChatMessage = useCallback(
-    (message: string) => {
-      console.log(user);
-      console.log(chatId);
+    async (content: string) => {
       if (!user || !chatId) return;
 
-      postMessage({
+      const { data } = await postMessage({
         variables: {
-          content: message,
+          content,
           poster: user?.id,
           chatId,
+        },
+      });
+
+      const oldData = client.readQuery<ChatQuery>({
+        query: ChatDocument,
+        variables: { userId: user.id },
+      });
+
+      client.writeQuery({
+        query: ChatDocument,
+        data: {
+          ...oldData,
+          user: {
+            ...oldData?.user,
+            id: user.id,
+            chat: {
+              ...oldData?.user?.chat,
+              id: chatId,
+              messages: [
+                data?.postMessage,
+                ...(oldData?.user?.chat?.messages ?? []),
+              ],
+            },
+          },
         },
       });
     },

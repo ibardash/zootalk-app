@@ -55,9 +55,15 @@ export type MutationPostMessageArgs = {
 export type Query = {
   __typename?: 'Query';
   _empty?: Maybe<Scalars['Boolean']>;
+  chat?: Maybe<Chat>;
   user?: Maybe<User>;
   zoo?: Maybe<Zoo>;
   zoos?: Maybe<Array<Zoo>>;
+};
+
+
+export type QueryChatArgs = {
+  id: Scalars['String'];
 };
 
 

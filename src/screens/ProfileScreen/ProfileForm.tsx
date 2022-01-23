@@ -47,7 +47,7 @@ export function ProfileForm() {
         id: data?.createUser.id,
       });
 
-      navigate("/chat");
+      navigate("/chat", { state: { userId: data?.createUser.id } });
     },
     [createUser, navigate, profile, saveUserDetails]
   );
