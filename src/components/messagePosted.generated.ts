@@ -6,12 +6,15 @@ const defaultOptions =  {}
 export type MessagePostedSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type MessagePostedSubscription = { __typename?: 'Subscription', messagePosted?: string | null | undefined };
+export type MessagePostedSubscription = { __typename?: 'Subscription', messagePosted?: { __typename?: 'Message', id: string, content?: string | null | undefined } | null | undefined };
 
 
 export const MessagePostedDocument = gql`
     subscription MessagePosted {
-  messagePosted
+  messagePosted {
+    id
+    content
+  }
 }
     `;
 

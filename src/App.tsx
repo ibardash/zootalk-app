@@ -1,6 +1,6 @@
 import { WelcomeScreen, ChatScreen, ProfileScreen } from "screens";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ChatContextProvider } from "./ChatContext";
+import { UserContextProvider } from "./UserContext";
 import { ApiProvider } from "./ApiProvider";
 import styled from "styled-components";
 import { Background } from "./ui";
@@ -9,7 +9,7 @@ import { NavBar } from "./components";
 export function App() {
   return (
     <ApiProvider>
-      <ChatContextProvider>
+      <UserContextProvider>
         <Router>
           <StyledBackground>
             <NavBar />
@@ -20,7 +20,7 @@ export function App() {
             </Routes>
           </StyledBackground>
         </Router>
-      </ChatContextProvider>
+      </UserContextProvider>
     </ApiProvider>
   );
 }

@@ -4,27 +4,51 @@ schema {
   subscription: Subscription
 }
 
-type Author {
-  books: [Book]
-  name: String
+type Chat {
+  id: String!
+  messages: [Message]
+  zoo: Zoo
 }
 
-type Book {
-  author: Author
-  title: String
+enum Location {
+  CENTRE
+  EAST
+  WEST
+}
+
+type Message {
+  content: String
+  id: String!
+  poster: String!
 }
 
 type Mutation {
   _empty: Boolean
-  sendMessage(message: String!): String
+  createUser(name: String!, zooId: String!): User
+  sendMessage(chatId: String!, content: String!, poster: String!): Message
 }
 
 type Query {
   _empty: Boolean
-  messages: [String!]!
+  user(id: String!): User
+  zoo(location: Location!): Zoo
 }
 
 type Subscription {
   _empty: Boolean
-  messagePosted: String
+  messagePosted: Message
+}
+
+type User {
+  chat: Chat
+  id: String!
+  name: String
+  zoo: Zoo
+}
+
+type Zoo {
+  id: String!
+  location: Location!
+  name: String
+  visitors: [User]
 }

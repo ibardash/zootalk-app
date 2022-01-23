@@ -1,0 +1,12 @@
+query getChat($userId: String!) {
+  user(id: $userId) {
+    id
+    chat {
+      id
+      messages {
+        id
+        content
+      }
+    }
+  }
+}

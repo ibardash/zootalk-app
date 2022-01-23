@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import styled from "styled-components";
-import useChatContext from "ChatContext";
+import useUserContext from "UserContext";
 import { MessageInput, MessageList } from "components";
 
 export function ChatScreen() {
   const [messages, setMessages] = useState<string[]>([]);
-  const { user } = useChatContext();
+  const { user } = useUserContext();
 
   const updateMessages = useCallback(
     (message: string) => {
@@ -16,7 +16,8 @@ export function ChatScreen() {
 
   return (
     <Container>
-      {user?.name}
+      {user?.id}
+      <br />
       <StyledMessageList messages={messages} />
       <StyledMessageInput onSubmit={updateMessages} />
     </Container>
