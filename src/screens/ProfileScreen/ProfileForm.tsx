@@ -1,8 +1,7 @@
-import { ZOOS, AVATARS } from "config";
-import { ChangeEvent, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Avatar, Input, Zoo, FormStep } from "ui";
+import { ProfileFormStep1 } from "./ProfileFormStep1";
+import { ProfileFormStep2 } from "./ProfileFormStep2";
 
 export function ProfileForm() {
   const navigate = useNavigate();
@@ -13,90 +12,35 @@ export function ProfileForm() {
     zooLocation: "",
   });
 
-  const onAvatarSelect = useCallback(
-    (avatar: string) => {
-      setProfile({ ...profile, avatar });
+  const onStep1Submit = useCallback(
+    (name: string) => {
+      setProfile({ ...profile, name });
+      setCurrentStep(1);
     },
     [profile]
   );
 
-  const onZooSelect = useCallback(
+  const onStep2Submit = useCallback(
     (zooLocation: string) => {
       setProfile({ ...profile, zooLocation });
+      setCurrentStep(2);
     },
     [profile]
   );
 
-  const onNameChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setProfile({ ...profile, name: event.target.value });
+  const onStep3Submit = useCallback(
+    (avatar: string) => {
+      setProfile({ ...profile, avatar });
+      navigate("/chat");
     },
-    [profile]
+    [navigate, profile]
   );
 
   return (
     <>
-      <FormStep
-        current={currentStep === 0}
-        onSubmit={() => setCurrentStep(1)}
-        buttonText="Next"
-      >
-        <h1>What's your name?</h1>
-        <StyledInput type="text" value={profile.name} onChange={onNameChange} />
-      </FormStep>
-      <FormStep
-        current={currentStep === 1}
-        onSubmit={() => setCurrentStep(2)}
-        buttonText="Next"
-      >
-        <h1>What zoo are you at?</h1>
-        <Images>
-          {Object.values(ZOOS).map(({ id, description, src }) => (
-            <Zoo
-              key={id}
-              id={id}
-              description={description}
-              src={src}
-              selected={profile.zooLocation === id}
-              onClick={onZooSelect}
-            />
-          ))}
-        </Images>
-      </FormStep>
-      <FormStep
-        current={currentStep === 2}
-        onSubmit={() => navigate("/chat")}
-        buttonText="Start chatting"
-      >
-        <h1>What's your favourite animal?</h1>
-        <Images>
-          {Object.values(AVATARS).map(({ id, description, src }) => (
-            <StyledAvatar
-              key={id}
-              id={id}
-              description={description}
-              src={src}
-              selected={profile.avatar === id}
-              onClick={onAvatarSelect}
-            />
-          ))}
-        </Images>
-      </FormStep>
+      <ProfileFormStep1 current={currentStep === 0} onSubmit={onStep1Submit} />
+      <ProfileFormStep2 current={currentStep === 1} onSubmit={onStep2Submit} />
+      <ProfileFormStep2 current={currentStep === 2} onSubmit={onStep3Submit} />
     </>
   );
 }
-
-const Images = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 16px;
-`;
-
-const StyledInput = styled(Input)`
-  width: 200px;
-  text-align: center;
-`;
-
-const StyledAvatar = styled(Avatar)`
-  flex: 1;
-`;

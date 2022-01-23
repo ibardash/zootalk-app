@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { FormEvent, ReactNode, useCallback } from "react";
 import styled from "styled-components";
 import { Button } from "ui";
 
@@ -15,8 +15,16 @@ export function FormStep({
   current,
   buttonText,
 }: FormStepProps) {
+  const onSubmitHandler = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      onSubmit();
+    },
+    [onSubmit]
+  );
+
   return current ? (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmitHandler}>
       {children}
       <StyledButton type="submit">{buttonText}</StyledButton>
     </Form>
