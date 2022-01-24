@@ -2,11 +2,13 @@ import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
 interface User {
   id: string;
+  name?: string | null | undefined;
+  avatar?: string | null | undefined;
 }
 
 interface UserContextType {
   user?: User;
-  saveUserDetails: (details: { id: string }) => void;
+  saveUserDetails: (details: User) => void;
 }
 
 const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -18,7 +20,7 @@ export function UserContextProvider({
 }): JSX.Element {
   const [user, setUser] = useState<User>();
 
-  function saveUserDetails(details: { id: string }) {
+  function saveUserDetails(details: User) {
     setUser(details);
   }
 

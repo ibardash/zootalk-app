@@ -4,7 +4,7 @@ import { UserContextProvider } from "./UserContext";
 import { GraphqlProvider } from "graphql/GraphqlProvider";
 import styled from "styled-components";
 import { Background } from "./ui";
-import { NavBar } from "./components";
+import { NavBar } from "./NavBar";
 
 export function App() {
   return (

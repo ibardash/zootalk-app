@@ -25,10 +25,7 @@ export function ProfileForm() {
 
       if (!data?.createUser) return;
 
-      saveUserDetails({
-        id: data?.createUser.id,
-      });
-
+      saveUserDetails(data.createUser);
       navigate("/chat", { state: { userId: data?.createUser.id } });
     },
     [createUser, navigate, saveUserDetails]
