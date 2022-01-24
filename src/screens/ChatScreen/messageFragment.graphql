@@ -1,0 +1,5 @@
+fragment message on Message {
+  id
+  content
+  poster
+}

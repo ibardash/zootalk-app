@@ -1,6 +1,7 @@
 import * as Types from '../../graphql/types.generated';
 
 import { gql } from '@apollo/client';
+import { MessageFragmentDoc } from './messageFragment.generated';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type PostMessageMutationVariables = Types.Exact<{
@@ -10,17 +11,16 @@ export type PostMessageMutationVariables = Types.Exact<{
 }>;
 
 
-export type PostMessageMutation = { __typename?: 'Mutation', postMessage?: { __typename?: 'Message', id: string, content?: string | null | undefined } | null | undefined };
+export type PostMessageMutation = { __typename?: 'Mutation', postMessage?: { __typename?: 'Message', id: string, content?: string | null | undefined, poster: string } | null | undefined };
 
 
 export const PostMessageDocument = gql`
     mutation postMessage($content: String!, $poster: String!, $chatId: String!) {
   postMessage(content: $content, poster: $poster, chatId: $chatId) {
-    id
-    content
+    ...message
   }
 }
-    `;
+    ${MessageFragmentDoc}`;
 export type PostMessageMutationFn = Apollo.MutationFunction<PostMessageMutation, PostMessageMutationVariables>;
 
 /**

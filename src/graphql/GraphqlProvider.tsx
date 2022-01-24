@@ -32,7 +32,7 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export function ApiProvider({
+export function GraphqlProvider({
   children,
 }: {
   children: ReactNode;

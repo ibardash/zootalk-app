@@ -1,15 +1,17 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import styled from "styled-components";
 import useUserContext from "UserContext";
 import { MessageInput, MessageList } from "components";
-import { ChatDocument, ChatQuery, useChatQuery } from "./chat.generated";
+import { useChatQuery } from "./chat.generated";
 import { usePostMessageMutation } from "./postMessage.generated";
-import { client } from "ApiProvider";
 import { useLocation } from "react-router-dom";
+import { updateChat } from "./updateChat";
+import { useMessagePostedSubscription } from "./messagePosted.generated";
 
 export function ChatScreen() {
   const { state } = useLocation();
   const { user } = useUserContext();
+  const { data: messageSubscriptionData } = useMessagePostedSubscription();
   const { data: chatData } = useChatQuery({
     variables: {
       userId: (state as { userId: string }).userId,
@@ -31,32 +33,15 @@ export function ChatScreen() {
         },
       });
 
-      const oldData = client.readQuery<ChatQuery>({
-        query: ChatDocument,
-        variables: { userId: user.id },
-      });
-
-      client.writeQuery({
-        query: ChatDocument,
-        data: {
-          ...oldData,
-          user: {
-            ...oldData?.user,
-            id: user.id,
-            chat: {
-              ...oldData?.user?.chat,
-              id: chatId,
-              messages: [
-                data?.postMessage,
-                ...(oldData?.user?.chat?.messages ?? []),
-              ],
-            },
-          },
-        },
-      });
+      updateChat(data?.postMessage, user.id, chatId);
     },
     [chatId, postMessage, user]
   );
+
+  useEffect(() => {
+    if (!user || !chatId || !messageSubscriptionData?.messagePosted) return;
+    updateChat(messageSubscriptionData.messagePosted, user.id, chatId);
+  }, [chatId, messageSubscriptionData, user]);
 
   return (
     <Container>

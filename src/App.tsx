@@ -1,14 +1,14 @@
 import { WelcomeScreen, ChatScreen, ProfileScreen } from "screens";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserContextProvider } from "./UserContext";
-import { ApiProvider } from "./ApiProvider";
+import { GraphqlProvider } from "graphql/GraphqlProvider";
 import styled from "styled-components";
 import { Background } from "./ui";
 import { NavBar } from "./components";
 
 export function App() {
   return (
-    <ApiProvider>
+    <GraphqlProvider>
       <UserContextProvider>
         <Router>
           <StyledBackground>
@@ -21,7 +21,7 @@ export function App() {
           </StyledBackground>
         </Router>
       </UserContextProvider>
-    </ApiProvider>
+    </GraphqlProvider>
   );
 }
 

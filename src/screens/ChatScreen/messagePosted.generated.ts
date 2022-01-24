@@ -1,22 +1,22 @@
-import * as Types from '../graphql/types.generated';
+import * as Types from '../../graphql/types.generated';
 
 import { gql } from '@apollo/client';
+import { MessageFragmentDoc } from './messageFragment.generated';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type MessagePostedSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type MessagePostedSubscription = { __typename?: 'Subscription', messagePosted?: { __typename?: 'Message', id: string, content?: string | null | undefined } | null | undefined };
+export type MessagePostedSubscription = { __typename?: 'Subscription', messagePosted?: { __typename?: 'Message', id: string, content?: string | null | undefined, poster: string } | null | undefined };
 
 
 export const MessagePostedDocument = gql`
     subscription MessagePosted {
   messagePosted {
-    id
-    content
+    ...message
   }
 }
-    `;
+    ${MessageFragmentDoc}`;
 
 /**
  * __useMessagePostedSubscription__

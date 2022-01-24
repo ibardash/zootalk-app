@@ -4,8 +4,7 @@ query chat($userId: String!) {
     chat {
       id
       messages {
-        id
-        content
+        ...message
       }
     }
   }

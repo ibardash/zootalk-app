@@ -1,6 +1,7 @@
 import * as Types from '../../graphql/types.generated';
 
 import { gql } from '@apollo/client';
+import { MessageFragmentDoc } from './messageFragment.generated';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type ChatQueryVariables = Types.Exact<{
@@ -8,7 +9,7 @@ export type ChatQueryVariables = Types.Exact<{
 }>;
 
 
-export type ChatQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, chat?: { __typename?: 'Chat', id: string, messages?: Array<{ __typename?: 'Message', id: string, content?: string | null | undefined }> | null | undefined } | null | undefined } | null | undefined };
+export type ChatQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, chat?: { __typename?: 'Chat', id: string, messages?: Array<{ __typename?: 'Message', id: string, content?: string | null | undefined, poster: string }> | null | undefined } | null | undefined } | null | undefined };
 
 
 export const ChatDocument = gql`
@@ -18,13 +19,12 @@ export const ChatDocument = gql`
     chat {
       id
       messages {
-        id
-        content
+        ...message
       }
     }
   }
 }
-    `;
+    ${MessageFragmentDoc}`;
 
 /**
  * __useChatQuery__
