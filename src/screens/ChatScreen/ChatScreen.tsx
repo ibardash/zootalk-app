@@ -28,7 +28,7 @@ export function ChatScreen() {
       const { data } = await postMessage({
         variables: {
           content,
-          poster: user?.id,
+          posterId: user?.id,
           chatId,
         },
       });
@@ -45,8 +45,6 @@ export function ChatScreen() {
 
   return (
     <Container>
-      {user?.id}
-      <br />
       <StyledMessageList messages={messages} />
       <StyledMessageInput onSubmit={postChatMessage} />
     </Container>

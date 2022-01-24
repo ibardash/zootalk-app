@@ -1,5 +1,5 @@
-mutation postMessage($content: String!, $poster: String!, $chatId: String!) {
-  postMessage(content: $content, poster: $poster, chatId: $chatId) {
+mutation postMessage($content: String!, $posterId: String!, $chatId: String!) {
+  postMessage(content: $content, posterId: $posterId, chatId: $chatId) {
     ...message
   }
 }

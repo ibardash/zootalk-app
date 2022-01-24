@@ -1,5 +1,5 @@
-mutation createUser($name: String!, $zooId: String!) {
-  createUser(name: $name, zooId: $zooId) {
+mutation createUser($name: String!, $zooId: String!, $avatar: String) {
+  createUser(name: $name, zooId: $zooId, avatar: $avatar) {
     id
     chat {
       id

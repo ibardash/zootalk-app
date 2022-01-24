@@ -1,21 +1,27 @@
-import { MessageBubble } from "./MessageBubble";
 import styled from "styled-components";
 import { useCallback, useEffect, useRef } from "react";
-import { Avatar } from "ui";
-import { AVATARS } from "config";
-
-interface Message {
-  content?: string | null | undefined;
-}
+import useUserContext from "UserContext";
+import { Message } from "./Message";
 
 export interface MessageListProps {
-  messages: Message[];
+  messages: {
+    content?: string | null | undefined;
+    poster?:
+      | {
+          id: string;
+          avatar?: string | null | undefined;
+          name?: string | null | undefined;
+        }
+      | null
+      | undefined;
+  }[];
   className?: string;
 }
 
 const SCROLL_DELAY_MS = 300;
 
 export function MessageList({ messages, className }: MessageListProps) {
+  const { user } = useUserContext();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToBottom = useCallback(() => {
@@ -29,22 +35,14 @@ export function MessageList({ messages, className }: MessageListProps) {
   return (
     <OuterContainer className={className}>
       <div ref={messagesEndRef} />
-      {messages.map((message, i) => (
-        <MessageContainer key={i} incoming={Boolean(i % 2)}>
-          {!Boolean(i % 2) && (
-            <Avatar id="devil" src={AVATARS.devil.src} size="s" />
-          )}
-          <MessageBubble incoming={Boolean(i % 2)}>
-            {message.content ? (
-              message.content
-            ) : (
-              <i>Could not retrieve the message</i>
-            )}
-          </MessageBubble>
-          {Boolean(i % 2) && (
-            <Avatar id="devil" src={AVATARS.devil.src} size="s" />
-          )}
-        </MessageContainer>
+      {messages.map(({ content, poster }, i) => (
+        <Message
+          key={i}
+          content={content}
+          incoming={poster?.id === user?.id}
+          posterAvatar={poster?.avatar}
+          posterName={poster?.name}
+        />
       ))}
     </OuterContainer>
   );
@@ -55,12 +53,4 @@ const OuterContainer = styled.div`
   flex: 1;
   flex-direction: column-reverse;
   overflow-y: scroll;
-`;
-
-const MessageContainer = styled.div<{ incoming: boolean }>`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: ${({ incoming }) => (incoming ? `flex-end` : `flex-start`)};
-  margin-top: 16px;
 `;

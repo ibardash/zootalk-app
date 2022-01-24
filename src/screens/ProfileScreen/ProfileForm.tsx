@@ -17,28 +17,10 @@ export function ProfileForm() {
     zooId: "",
   });
 
-  const onStep1Submit = useCallback(
-    (name: string) => {
-      setProfile({ ...profile, name });
-      setCurrentStep(1);
-    },
-    [profile]
-  );
-
-  const onStep2Submit = useCallback(
-    (zooId: string) => {
-      setProfile({ ...profile, zooId });
-      setCurrentStep(2);
-    },
-    [profile]
-  );
-
-  const onStep3Submit = useCallback(
-    async (avatar: string) => {
-      setProfile({ ...profile, avatar });
-
+  const submitForm = useCallback(
+    async (profile) => {
       const { data } = await createUser({
-        variables: { name: profile.name, zooId: profile.zooId },
+        variables: profile,
       });
 
       if (!data?.createUser) return;
@@ -49,7 +31,37 @@ export function ProfileForm() {
 
       navigate("/chat", { state: { userId: data?.createUser.id } });
     },
-    [createUser, navigate, profile, saveUserDetails]
+    [createUser, navigate, saveUserDetails]
+  );
+
+  const onStep1Submit = useCallback(
+    (name: string) => {
+      const updatedProfile = { ...profile, name };
+
+      setProfile(updatedProfile);
+      setCurrentStep(1);
+    },
+    [profile]
+  );
+
+  const onStep2Submit = useCallback(
+    (zooId: string) => {
+      const updatedProfile = { ...profile, zooId };
+
+      setProfile(updatedProfile);
+      setCurrentStep(2);
+    },
+    [profile]
+  );
+
+  const onStep3Submit = useCallback(
+    async (avatar: string) => {
+      const updatedProfile = { ...profile, avatar };
+
+      setProfile(updatedProfile);
+      submitForm(updatedProfile);
+    },
+    [profile, submitForm]
   );
 
   return (

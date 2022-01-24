@@ -19,13 +19,13 @@ enum Location {
 type Message {
   content: String
   id: String!
-  poster: String!
+  poster: User
 }
 
 type Mutation {
   _empty: Boolean
-  createUser(name: String!, zooId: String!): User
-  postMessage(chatId: String!, content: String!, poster: String!): Message
+  createUser(avatar: String, name: String!, zooId: String!): User
+  postMessage(chatId: String!, content: String!, posterId: String!): Message
 }
 
 type Query {
@@ -42,6 +42,7 @@ type Subscription {
 }
 
 type User {
+  avatar: String
   chat: Chat
   id: String!
   name: String

@@ -2,7 +2,10 @@ import cockatoo from "images/avatar-cockatoo.png";
 import koala from "images/avatar-koala.png";
 import devil from "images/avatar-tasmanian-devil.png";
 
-export const AVATARS = {
+export const AVATARS: Record<
+  string,
+  { id: string; description: string; src: string }
+> = {
   cockatoo: {
     id: "cockatoo",
     description: "Cockatoo",
@@ -19,3 +22,5 @@ export const AVATARS = {
     src: devil,
   },
 };
+
+export const DEFAULT_AVATAR = AVATARS.koala;

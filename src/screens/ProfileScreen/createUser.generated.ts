@@ -6,6 +6,7 @@ const defaultOptions =  {}
 export type CreateUserMutationVariables = Types.Exact<{
   name: Types.Scalars['String'];
   zooId: Types.Scalars['String'];
+  avatar?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
 
@@ -13,8 +14,8 @@ export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typ
 
 
 export const CreateUserDocument = gql`
-    mutation createUser($name: String!, $zooId: String!) {
-  createUser(name: $name, zooId: $zooId) {
+    mutation createUser($name: String!, $zooId: String!, $avatar: String) {
+  createUser(name: $name, zooId: $zooId, avatar: $avatar) {
     id
     chat {
       id
@@ -39,6 +40,7 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  *   variables: {
  *      name: // value for 'name'
  *      zooId: // value for 'zooId'
+ *      avatar: // value for 'avatar'
  *   },
  * });
  */

@@ -1,5 +1,9 @@
 fragment message on Message {
   id
   content
-  poster
+  poster {
+    id
+    name
+    avatar
+  }
 }

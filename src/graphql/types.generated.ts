@@ -29,7 +29,7 @@ export type Message = {
   __typename?: 'Message';
   content?: Maybe<Scalars['String']>;
   id: Scalars['String'];
-  poster: Scalars['String'];
+  poster?: Maybe<User>;
 };
 
 export type Mutation = {
@@ -41,6 +41,7 @@ export type Mutation = {
 
 
 export type MutationCreateUserArgs = {
+  avatar?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   zooId: Scalars['String'];
 };
@@ -49,7 +50,7 @@ export type MutationCreateUserArgs = {
 export type MutationPostMessageArgs = {
   chatId: Scalars['String'];
   content: Scalars['String'];
-  poster: Scalars['String'];
+  posterId: Scalars['String'];
 };
 
 export type Query = {
@@ -84,6 +85,7 @@ export type Subscription = {
 
 export type User = {
   __typename?: 'User';
+  avatar?: Maybe<Scalars['String']>;
   chat?: Maybe<Chat>;
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
