@@ -6,7 +6,7 @@ import { Message } from "./Message";
 export interface MessageListProps {
   messages: {
     content?: string | null | undefined;
-    poster?:
+    sender?:
       | {
           id: string;
           avatar?: string | null | undefined;
@@ -35,13 +35,13 @@ export function MessageList({ messages, className }: MessageListProps) {
   return (
     <OuterContainer className={className}>
       <div ref={messagesEndRef} />
-      {messages.map(({ content, poster }, i) => (
+      {messages.map(({ content, sender }, i) => (
         <Message
           key={i}
           content={content}
-          incoming={poster?.id === user?.id}
-          posterAvatar={poster?.avatar}
-          posterName={poster?.name}
+          incoming={sender?.id === user?.id}
+          senderAvatar={sender?.avatar}
+          senderName={sender?.name}
         />
       ))}
     </OuterContainer>

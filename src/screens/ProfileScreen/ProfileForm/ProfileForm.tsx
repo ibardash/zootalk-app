@@ -1,21 +1,25 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserContext from "UserContext";
-import { ProfileFormStep1 } from "./ProfileFormStep1";
-import { ProfileFormStep2 } from "./ProfileFormStep2";
-import { ProfileFormStep3 } from "./ProfileFormStep3";
 import { useCreateUserMutation } from "./createUser.generated";
+import {
+  ProfileFormStep1,
+  ProfileFormStep2,
+  ProfileFormStep3,
+} from "./ProfileFormSteps";
+
+interface Profile {
+  name?: string;
+  avatar?: string;
+  zooId?: string;
+}
 
 export function ProfileForm() {
   const navigate = useNavigate();
   const { saveUserDetails } = useUserContext();
   const [createUser] = useCreateUserMutation();
   const [currentStep, setCurrentStep] = useState(0);
-  const [profile, setProfile] = useState({
-    name: "",
-    avatar: "",
-    zooId: "",
-  });
+  const [profile, setProfile] = useState<Profile>({});
 
   const submitForm = useCallback(
     async (profile) => {
@@ -26,7 +30,7 @@ export function ProfileForm() {
       if (!data?.createUser) return;
 
       saveUserDetails(data.createUser);
-      navigate("/chat", { state: { userId: data?.createUser.id } });
+      navigate("/chat");
     },
     [createUser, navigate, saveUserDetails]
   );

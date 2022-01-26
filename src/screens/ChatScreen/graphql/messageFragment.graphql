@@ -1,7 +1,7 @@
 fragment message on Message {
   id
   content
-  poster {
+  sender {
     id
     name
     avatar

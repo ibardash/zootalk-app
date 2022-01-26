@@ -14,7 +14,7 @@ export function MessageInput({ onSubmit, className }: MessageInputProps) {
     (event: ChangeEvent<HTMLInputElement>) => {
       setMessage(event.target.value);
     },
-    []
+    [setMessage]
   );
 
   const onSubmitHandler = useCallback(

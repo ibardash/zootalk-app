@@ -1,4 +1,4 @@
-import * as Types from '../../graphql/types.generated';
+import * as Types from '../../../graphql/types.generated';
 
 import { gql } from '@apollo/client';
 import { MessageFragmentDoc } from './messageFragment.generated';
@@ -9,7 +9,7 @@ export type ChatQueryVariables = Types.Exact<{
 }>;
 
 
-export type ChatQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, chat?: { __typename?: 'Chat', id: string, messages?: Array<{ __typename?: 'Message', id: string, content?: string | null | undefined, poster?: { __typename?: 'User', id: string, name?: string | null | undefined, avatar?: string | null | undefined } | null | undefined }> | null | undefined } | null | undefined } | null | undefined };
+export type ChatQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, chat?: { __typename?: 'Chat', id: string, messages?: Array<{ __typename?: 'Message', id: string, content?: string | null | undefined, sender?: { __typename?: 'User', id: string, name?: string | null | undefined, avatar?: string | null | undefined } | null | undefined }> | null | undefined } | null | undefined } | null | undefined };
 
 
 export const ChatDocument = gql`

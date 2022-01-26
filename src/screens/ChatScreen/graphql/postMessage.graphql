@@ -1,0 +1,5 @@
+mutation postMessage($content: String!, $senderId: String!, $chatId: String!) {
+  postMessage(content: $content, senderId: $senderId, chatId: $chatId) {
+    ...message
+  }
+}

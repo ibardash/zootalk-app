@@ -2,7 +2,6 @@ import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
 interface User {
   id: string;
-  name?: string | null | undefined;
   avatar?: string | null | undefined;
 }
 

@@ -1,25 +1,29 @@
 import { useCallback, useEffect } from "react";
 import styled from "styled-components";
 import useUserContext from "UserContext";
-import { MessageInput, MessageList } from "components";
-import { useChatQuery } from "./chat.generated";
-import { usePostMessageMutation } from "./postMessage.generated";
-import { useLocation } from "react-router-dom";
-import { updateChat } from "./updateChat";
-import { useMessagePostedSubscription } from "./messagePosted.generated";
+import { MessageInput } from "./MessageInput";
+import { MessageList } from "./MessageList";
+import {
+  useChatQuery,
+  usePostMessageMutation,
+  useMessagePostedSubscription,
+  updateChat,
+} from "./graphql";
 
 export function ChatScreen() {
-  const { state } = useLocation();
   const { user } = useUserContext();
-  const { data: messageSubscriptionData } = useMessagePostedSubscription();
+  if (!user) throw new Error("No current user");
+
   const { data: chatData } = useChatQuery({
     variables: {
-      userId: (state as { userId: string }).userId,
+      userId: user.id,
     },
   });
   const chatId = chatData?.user?.chat?.id;
   const messages = chatData?.user?.chat?.messages || [];
+
   const [postMessage] = usePostMessageMutation();
+  const { data: messageSubscriptionData } = useMessagePostedSubscription();
 
   const postChatMessage = useCallback(
     async (content: string) => {
@@ -28,7 +32,7 @@ export function ChatScreen() {
       const { data } = await postMessage({
         variables: {
           content,
-          posterId: user?.id,
+          senderId: user?.id,
           chatId,
         },
       });
@@ -39,8 +43,10 @@ export function ChatScreen() {
   );
 
   useEffect(() => {
-    if (!user || !chatId || !messageSubscriptionData?.messagePosted) return;
-    updateChat(messageSubscriptionData.messagePosted, user.id, chatId);
+    const newMessage = messageSubscriptionData?.messagePosted;
+    if (!user || !chatId || !newMessage) return;
+
+    updateChat(newMessage, user.id, chatId);
   }, [chatId, messageSubscriptionData, user]);
 
   return (

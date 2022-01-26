@@ -8,15 +8,17 @@ export interface ProfileFormStep1Props {
 }
 
 export function ProfileFormStep1({ current, onSubmit }: ProfileFormStep1Props) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState<string | undefined>();
 
-  const onNameChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  }, []);
+  const onNameChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setName(event.target.value);
+    },
+    [setName]
+  );
 
   const onSubmitHandler = useCallback(() => {
-    if (!name.length) return;
-    onSubmit(name);
+    if (name) onSubmit(name);
   }, [name, onSubmit]);
 
   return (

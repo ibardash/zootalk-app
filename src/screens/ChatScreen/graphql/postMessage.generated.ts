@@ -1,4 +1,4 @@
-import * as Types from '../../graphql/types.generated';
+import * as Types from '../../../graphql/types.generated';
 
 import { gql } from '@apollo/client';
 import { MessageFragmentDoc } from './messageFragment.generated';
@@ -6,17 +6,17 @@ import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type PostMessageMutationVariables = Types.Exact<{
   content: Types.Scalars['String'];
-  posterId: Types.Scalars['String'];
+  senderId: Types.Scalars['String'];
   chatId: Types.Scalars['String'];
 }>;
 
 
-export type PostMessageMutation = { __typename?: 'Mutation', postMessage?: { __typename?: 'Message', id: string, content?: string | null | undefined, poster?: { __typename?: 'User', id: string, name?: string | null | undefined, avatar?: string | null | undefined } | null | undefined } | null | undefined };
+export type PostMessageMutation = { __typename?: 'Mutation', postMessage?: { __typename?: 'Message', id: string, content?: string | null | undefined, sender?: { __typename?: 'User', id: string, name?: string | null | undefined, avatar?: string | null | undefined } | null | undefined } | null | undefined };
 
 
 export const PostMessageDocument = gql`
-    mutation postMessage($content: String!, $posterId: String!, $chatId: String!) {
-  postMessage(content: $content, posterId: $posterId, chatId: $chatId) {
+    mutation postMessage($content: String!, $senderId: String!, $chatId: String!) {
+  postMessage(content: $content, senderId: $senderId, chatId: $chatId) {
     ...message
   }
 }
@@ -37,7 +37,7 @@ export type PostMessageMutationFn = Apollo.MutationFunction<PostMessageMutation,
  * const [postMessageMutation, { data, loading, error }] = usePostMessageMutation({
  *   variables: {
  *      content: // value for 'content'
- *      posterId: // value for 'posterId'
+ *      senderId: // value for 'senderId'
  *      chatId: // value for 'chatId'
  *   },
  * });

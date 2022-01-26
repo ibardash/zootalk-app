@@ -9,14 +9,16 @@ export interface ProfileFormStep3Props {
 }
 
 export function ProfileFormStep3({ current, onSubmit }: ProfileFormStep3Props) {
-  const [avatar, setAvatar] = useState("");
-  const onAvatarSelect = useCallback((avatar: string) => {
-    setAvatar(avatar);
-  }, []);
+  const [avatar, setAvatar] = useState<string | undefined>();
+  const onAvatarSelect = useCallback(
+    (avatar: string) => {
+      setAvatar(avatar);
+    },
+    [setAvatar]
+  );
 
   const onSubmitHandler = useCallback(() => {
-    if (!avatar.length) return;
-    onSubmit(avatar);
+    if (avatar) onSubmit(avatar);
   }, [avatar, onSubmit]);
 
   return (

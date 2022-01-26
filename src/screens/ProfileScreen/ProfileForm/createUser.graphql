@@ -1,10 +1,6 @@
 mutation createUser($name: String!, $zooId: String!, $avatar: String) {
   createUser(name: $name, zooId: $zooId, avatar: $avatar) {
     id
-    name
     avatar
-    chat {
-      id
-    }
   }
 }

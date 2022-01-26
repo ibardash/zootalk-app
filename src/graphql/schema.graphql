@@ -5,7 +5,7 @@ schema {
 }
 
 type Chat {
-  id: String!
+  id: ID!
   messages: [Message!]
   zoo: Zoo
 }
@@ -18,39 +18,37 @@ enum Location {
 
 type Message {
   content: String
-  id: String!
-  poster: User
+  id: ID!
+  sender: User
 }
 
 type Mutation {
-  _empty: Boolean
   createUser(avatar: String, name: String!, zooId: String!): User
-  postMessage(chatId: String!, content: String!, posterId: String!): Message
+  postMessage(chatId: String!, content: String!, senderId: String!): Message
 }
 
 type Query {
-  _empty: Boolean
-  chat(id: String!): Chat
   user(id: String!): User
-  zoo(location: Location!): Zoo
   zoos: [Zoo!]
 }
 
 type Subscription {
-  _empty: Boolean
   messagePosted: Message
 }
 
 type User {
   avatar: String
   chat: Chat
-  id: String!
+  id: ID!
   name: String
+  picture: String @deprecated(reason: "picture is deprecated, use avatar instead")
   zoo: Zoo
 }
 
+"""A representation of Zoo"""
 type Zoo {
-  id: String!
+  """uuid format"""
+  id: ID!
   location: Location!
   name: String
   visitors: [User]

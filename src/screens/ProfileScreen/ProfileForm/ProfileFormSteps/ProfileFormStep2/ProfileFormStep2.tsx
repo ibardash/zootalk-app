@@ -10,15 +10,18 @@ export interface ProfileFormStep2Props {
 }
 
 export function ProfileFormStep2({ current, onSubmit }: ProfileFormStep2Props) {
-  const [zooLocation, setZooLocation] = useState("");
+  const [zooLocation, setZooLocation] = useState<string | undefined>();
   const { data, loading } = useZoosQuery();
 
-  const onZooSelect = useCallback((zooLocation: string) => {
-    setZooLocation(zooLocation);
-  }, []);
+  const onZooSelect = useCallback(
+    (zooLocation: string) => {
+      setZooLocation(zooLocation);
+    },
+    [setZooLocation]
+  );
 
   const onSubmitHandler = useCallback(() => {
-    if (!zooLocation.length || !data) return;
+    if (!zooLocation || !data) return;
 
     const zooId = data.zoos?.find(
       (zoo) => zoo.location.toLowerCase() === zooLocation.toLowerCase()

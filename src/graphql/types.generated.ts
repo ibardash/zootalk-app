@@ -14,7 +14,7 @@ export type Scalars = {
 
 export type Chat = {
   __typename?: 'Chat';
-  id: Scalars['String'];
+  id: Scalars['ID'];
   messages?: Maybe<Array<Message>>;
   zoo?: Maybe<Zoo>;
 };
@@ -28,13 +28,12 @@ export enum Location {
 export type Message = {
   __typename?: 'Message';
   content?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  poster?: Maybe<User>;
+  id: Scalars['ID'];
+  sender?: Maybe<User>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  _empty?: Maybe<Scalars['Boolean']>;
   createUser?: Maybe<User>;
   postMessage?: Maybe<Message>;
 };
@@ -50,21 +49,13 @@ export type MutationCreateUserArgs = {
 export type MutationPostMessageArgs = {
   chatId: Scalars['String'];
   content: Scalars['String'];
-  posterId: Scalars['String'];
+  senderId: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  _empty?: Maybe<Scalars['Boolean']>;
-  chat?: Maybe<Chat>;
   user?: Maybe<User>;
-  zoo?: Maybe<Zoo>;
   zoos?: Maybe<Array<Zoo>>;
-};
-
-
-export type QueryChatArgs = {
-  id: Scalars['String'];
 };
 
 
@@ -72,14 +63,8 @@ export type QueryUserArgs = {
   id: Scalars['String'];
 };
 
-
-export type QueryZooArgs = {
-  location: Location;
-};
-
 export type Subscription = {
   __typename?: 'Subscription';
-  _empty?: Maybe<Scalars['Boolean']>;
   messagePosted?: Maybe<Message>;
 };
 
@@ -87,14 +72,18 @@ export type User = {
   __typename?: 'User';
   avatar?: Maybe<Scalars['String']>;
   chat?: Maybe<Chat>;
-  id: Scalars['String'];
+  id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
+  /** @deprecated picture is deprecated, use avatar instead */
+  picture?: Maybe<Scalars['String']>;
   zoo?: Maybe<Zoo>;
 };
 
+/** A representation of Zoo */
 export type Zoo = {
   __typename?: 'Zoo';
-  id: Scalars['String'];
+  /** uuid format */
+  id: Scalars['ID'];
   location: Location;
   name?: Maybe<Scalars['String']>;
   visitors?: Maybe<Array<Maybe<User>>>;

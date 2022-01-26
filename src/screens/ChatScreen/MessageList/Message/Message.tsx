@@ -6,24 +6,24 @@ import { AVATARS, DEFAULT_AVATAR } from "config";
 interface MessageProps {
   content?: string | null | undefined;
   incoming: boolean;
-  posterAvatar?: string | null | undefined;
-  posterName?: string | null | undefined;
+  senderAvatar?: string | null | undefined;
+  senderName?: string | null | undefined;
 }
 
 export function Message({
   incoming,
   content,
-  posterAvatar,
-  posterName,
+  senderAvatar,
+  senderName,
 }: MessageProps) {
-  const avatar = posterAvatar ? AVATARS[posterAvatar] : DEFAULT_AVATAR;
+  const avatar = senderAvatar ? AVATARS[senderAvatar] : DEFAULT_AVATAR;
 
   return (
     <MessageContainer incoming={incoming}>
       {!incoming && <Avatar id={avatar.id} src={avatar.src} size="s" />}
       <MessageBubble incoming={incoming}>
         <>
-          <Sender>{posterName}</Sender>
+          <Sender>{senderName}</Sender>
           {content ? content : <i>Could not retrieve the message</i>}
         </>
       </MessageBubble>
